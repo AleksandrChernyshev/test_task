@@ -1,0 +1,96 @@
+﻿@using MyWebLibrary.Models
+@model AuthorViewModel
+
+@{
+    ViewBag.Title = "Edit Author";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AuthorLastName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.AuthorLastName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.AuthorLastName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AuthorFirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.AuthorFirstName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.AuthorFirstName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AuthorPatronymic, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.AuthorPatronymic, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.AuthorPatronymic, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AuthorDateOfBirth, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.AuthorDateOfBirth, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.AuthorDateOfBirth, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Books, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <!--альтернативный вариант button-->
+                <!--<a href="" class="pull-right" data-toggle="modal" data-target="#CreateBookModal">Add Book</a>-->
+                <button type="button" class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#CreateBookModal">
+                    Add Book    
+                </button>
+            </div>
+        </div>
+        <hr />
+        <div class="AllBook">
+            @if (Model != null && Model.Books != null)
+            {
+                var books = Model.Books.ToList();
+
+                for (var i = 0; i < books.Count; i++)
+                {
+                    <div class="rect">
+                        @Html.Hidden("Books[" + i + "].Id", books[i].Id)
+                        @Html.Hidden("Books[" + i + "].BookName", books[i].BookName)
+                        @Html.Hidden("Books[" + i + "].BookStyle", books[i].BookStyle)
+                        @Html.Hidden("Books[" + i + "].BookPagesNumber", books[i].BookPagesNumber)
+                        <p>
+                            BookName: @books[i].BookName <br />
+                            BookStyle: @books[i].BookStyle <br />
+                            BookPagesNumber: @books[i].BookPagesNumber
+                        </p>
+                    </div>
+                }
+            }
+        </div>
+        
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn pull-right" />
+            </div>
+        </div>
+    </div>
+}
+@Html.Partial("CreateBook", new BookViewModel())
+
+@section scripts
+{
+    <script src="~/Scripts/addBooks.js"></script>
+}

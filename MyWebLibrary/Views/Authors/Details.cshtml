@@ -1,0 +1,50 @@
+﻿@model MyWebLibrary.Models.Author
+
+@{
+    ViewBag.Title = "Details about Author";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AuthorLastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AuthorLastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AuthorFirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AuthorFirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AuthorPatronymic)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AuthorPatronymic)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AuthorDateOfBirth)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AuthorDateOfBirth)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
